@@ -55,7 +55,7 @@ function loginUser(event) {
       .then(response => response.json())
       .then(data => {
         console.log(data.message);
-        console(data);
+        
         // Redirect to the dashboard folder if login is successful
         if (data.message === 'Login successful') {
           window.location.href = '/dashboard';
