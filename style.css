@@ -1,0 +1,145 @@
+*{
+    font-family: 'Kanit', sans-serif;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+
+.logo{
+    width: 100px;
+    height: 100px;
+}
+
+.login-container{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+}
+
+.main-wrapper{
+    display: flex;
+}
+
+.left-container{
+    width: 40vw;
+    padding: 5%;
+}
+.right-container{
+    width: 40vw;
+    padding: 2%;
+
+}
+
+.login-inputs{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    font-size: 20px;
+
+
+}
+
+form#login-form{
+    display: flex;
+    flex-direction: column;
+    font-size: 26px;
+}
+
+.login-inputs input{
+    height: 60px;
+    border: 1px solid black;
+    border-radius: 7px;
+    margin: 10px 0px 10px 0px;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.login-btn button{
+    width: 100%;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    height: 50px;
+    font-size: 20px;
+
+}
+
+h5.login-header {
+    font-size: 3vw;
+    margin: 10px 10px 30px 0px;
+}
+
+
+.error-message{
+    background-color: red;
+    width: 80%;
+    font-size: 25px;
+    margin: 20px 0px;
+    display: none;
+    height: 50px;
+    text-align: center;
+    border-radius: 7px;
+
+}
+
+.error-message h5{
+    text-align: center;
+}
+
+.active{
+    display: block;
+    animation: moveDown 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.error-message h5{
+    font-style: italic;
+    font-weight: 300;
+    color: white;
+    text-align: center;
+}
+
+
+.login-img{
+    background-image: url(assets/oil.png);
+    background-size: cover;
+    height: 80vh;
+}
+
+/* Animationer */
+
+@keyframes moveDown{
+    from{
+        transform: translateY(-15px);
+        opacity: 0;
+    }
+    to{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

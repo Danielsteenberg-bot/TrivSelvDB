@@ -1,5 +1,5 @@
 document.getElementById('registerForm').addEventListener('submit', registerUser);
-document.getElementById('loginForm').addEventListener('submit', loginUser);
+document.getElementById('login-form').addEventListener('submit', loginUser);
 
 function registerUser(event) {
   event.preventDefault();
@@ -44,6 +44,8 @@ function loginUser(event) {
       email,
       password
     };
+
+    console.log(loginData)
   
     fetch('http://localhost:5000/users/login', {
       method: 'POST',
@@ -55,6 +57,7 @@ function loginUser(event) {
       .then(response => response.json())
       .then(data => {
         console.log(data.message);
+        console.log('Login Response:', data);
         
         // Redirect to the dashboard folder if login is successful
         if (data.message === 'Login successful') {

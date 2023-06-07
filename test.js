@@ -1,13 +1,12 @@
-const axios = require('axios');
+const { getUsers } = require('./app');
 
-axios.get('http://localhost:5000') // Replace with your server URL
-  .then(response => {
-    if (response.status === 200) {
-      console.log('Server is up and running!');
-    } else {
-      console.log('Server is not responding with a successful status code.');
-    }
-  })
-  .catch(error => {
-    console.error('Error connecting to the server:', error.message);
-  });
+getUsers((error, users) => {
+  if (error) {
+    console.error('Error retrieving users:', error);
+    // Handle the error appropriately
+  } else {
+    // Use the retrieved users
+    console.log(users);
+    // Perform any necessary operations with the users
+  }
+});

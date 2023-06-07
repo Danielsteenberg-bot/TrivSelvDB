@@ -50,36 +50,39 @@ app.post('/users/register', (req, res) => {
 });
 
 app.post('/users/login', (req, res) => {
-    const { email, password } = req.body;
-  
-    // Find the user with the specified email in the database
-    db.collection('users')
-      .findOne({ email })
-      .then(user => {
-        if (user) {
-          // Compare the provided password with the hashed password stored in the database
-          bcrypt.compare(password, user.password, (err, result) => {
-            if (err) {
-              console.error('Error comparing passwords:', err);
-              res.status(500).json({ message: 'Failed to compare passwords' });
-            } else if (result) {
-              // Passwords match, login successful
-              res.status(200).json({ message: 'Login successful' });
-            } else {
-              // Passwords do not match
-              res.status(401).json({ message: 'Invalid credentials' });
-            }
-          });
-        } else {
-          // User not found
-          res.status(404).json({ message: 'User not found' });
-        }
-      })
-      .catch(error => {
-        console.error('Error retrieving user:', error);
-        res.status(500).json({ message: 'Failed to retrieve user' });
-      });
-  });
+  const { email, password } = req.body;
+
+  // Find the user with the specified email in the database
+  db.collection('users')
+    .findOne({ email })
+    .then(user => {
+      console.log('Retrieved User:', user);
+      if (user) {
+        // Compare the provided password with the hashed password stored in the database
+        bcrypt.compare(password, user.password, (err, result) => {
+          if (err) {
+            console.error('Error comparing passwords:', err);
+            res.status(500).json({ message: 'Failed to compare passwords' });
+          } else if (result) {
+            // Passwords match, login successful
+            // Redirect to the user's dashboard and pass the user's information as query parameters
+            res.redirect(`/dashboard?username=${user.username}&email=${user.email}`);
+          } else {
+            // Passwords do not match
+            res.status(401).json({ message: 'Invalid credentials',  });
+          }
+        });
+      } else {
+        // User not found
+        res.status(404).json({ message: 'User not found' });
+      }
+    })
+    .catch(error => {
+      console.error('Error retrieving user:', error);
+      res.status(500).json({ message: 'Failed to retrieve user' });
+    });
+});
+
 
 app.get('/users', (req, res) => {
   // Retrieve all users from the database
@@ -113,5 +116,20 @@ app.get('/users/username/:username', (req, res) => {
 });
 
 
-app.use(express.static(__dirname));
+  app.use(express.static(__dirname));
+
+  module.exports = {
+    getUsers: (callback) => {
+      db.collection('users')
+        .find()
+        .toArray()
+        .then((users) => {
+          callback(null, users);
+        })
+        .catch((error) => {
+          console.error('Error retrieving users:', error);
+          callback(error, null);
+        });
+    },
+  };
 
