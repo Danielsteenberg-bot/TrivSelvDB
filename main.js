@@ -74,14 +74,14 @@ function loginUser(event) {
 
   function testConnection(){
     fetch('https://main.d21aidivw4ryh2.amplifyapp.com/users/login', {
-      method: 'POST',
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(loginData)
+      }
     })
       .then(response => response.json())
       .then(data => {
+        console.log(data)
         console.log(data.message);
       })
   }
