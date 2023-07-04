@@ -37,7 +37,7 @@ MongoClient.connect(mongoURI, { useUnifiedTopology: true })
     res.sendFile(path.join(__dirname, 'index.html'));
   });
 
-app.post('/users/register', (req, res) => {
+app.post('/api/register', (req, res) => {
   const { username, email, password } = req.body;
 
   const hashedPassword = bcrypt.hashSync(password, 10);
@@ -52,7 +52,7 @@ app.post('/users/register', (req, res) => {
     });
 });
 
-app.post('/users/login', (req, res) => {
+app.post('/api/login', (req, res) => {
   const { email, password } = req.body;
 
   db.collection('users')
