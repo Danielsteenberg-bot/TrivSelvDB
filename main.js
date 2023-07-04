@@ -26,12 +26,11 @@ function registerUser(event) {
     .then(response => response.json())
     .then(data => {
       console.log(data);
-      console.log("hej")
 
     })
     .catch(error => {
       console.error('Error:', error);
-      console.log("hej")
+
     });
 }
 
@@ -72,9 +71,9 @@ function loginUser(event) {
   
 
 
-  function testConnection(){
+/*   function testConnection(){
     fetch('https://main.d21aidivw4ryh2.amplifyapp.com/users/login', {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       }
@@ -86,4 +85,4 @@ function loginUser(event) {
       })
   }
 
-  testConnection();
+  testConnection(); */
