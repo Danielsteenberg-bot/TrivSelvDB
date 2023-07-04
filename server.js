@@ -2,9 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const { MongoClient } = require('mongodb');
+const cors = require('cors');
 const path = require('path');
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -35,10 +37,8 @@ MongoClient.connect(mongoURI, { useUnifiedTopology: true })
 app.post('/users/register', (req, res) => {
   const { username, email, password } = req.body;
 
-  // Hash the password
   const hashedPassword = bcrypt.hashSync(password, 10);
 
-  // Store user credentials in the database
   db.collection('users').insertOne({ username, email, password: hashedPassword })
     .then(result => {
       res.status(200).json({ message: 'User registered successfully' });
@@ -52,28 +52,25 @@ app.post('/users/register', (req, res) => {
 app.post('/users/login', (req, res) => {
   const { email, password } = req.body;
 
-  // Find the user with the specified email in the database
   db.collection('users')
     .findOne({ email })
     .then(user => {
       console.log('Retrieved User:', user);
       if (user) {
-        // Compare the provided password with the hashed password stored in the database
         bcrypt.compare(password, user.password, (err, result) => {
           if (err) {
             console.error('Error comparing passwords:', err);
             res.status(500).json({ message: 'Failed to compare passwords' });
-          } else if (result) {
-            // Passwords match, login successful
-            // Redirect to the user's dashboard and pass the user's information as query parameters
+          }
+           else if (result) {
             res.redirect(`/dashboard?username=${user.username}&email=${user.email}`);
-          } else {
-            // Passwords do not match
+          }
+           else {
             res.status(401).json({ message: 'Invalid credentials',  });
           }
         });
+
       } else {
-        // User not found
         res.status(404).json({ message: 'User not found' });
       }
     })
@@ -83,9 +80,12 @@ app.post('/users/login', (req, res) => {
     });
 });
 
+app.post('/users/register', (req, res) => {
+});
+
+
 
 app.get('/users', (req, res) => {
-  // Retrieve all users from the database
   db.collection('users').find().toArray()
     .then(users => {
       res.status(200).json(users);
@@ -99,7 +99,6 @@ app.get('/users', (req, res) => {
 app.get('/users/username/:username', (req, res) => {
   const { username } = req.params;
 
-  // Retrieve the user with the specified username from the database
   db.collection('users')
     .findOne({ username })
     .then(user => {

@@ -59,14 +59,13 @@ function loginUser(event) {
         console.log(data.message);
         console.log('Login Response:', data);
         
-        // Redirect to the dashboard folder if login is successful
         if (data.message === 'Login successful') {
           window.location.href = '/dashboard';
         }
       })
       .catch(error => {
         console.error('Error logging in:', error);
-        // Show error message
+        console.log("rammer vi ")
       });
   }
   
