@@ -16,7 +16,7 @@ function registerUser(event) {
 
   console.log(userData)
 
-  fetch('http://localhost:5000/users/register', {
+  fetch('https://main.d21aidivw4ryh2.amplifyapp.com/users/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ function loginUser(event) {
 
     console.log(loginData)
   
-    fetch('http://localhost:5000/users/login', {
+    fetch('https://main.d21aidivw4ryh2.amplifyapp.com/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
