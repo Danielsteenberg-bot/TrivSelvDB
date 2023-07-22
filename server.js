@@ -6,12 +6,11 @@ const cors = require('cors');
 const path = require('path');
 
 const app = express();
-app.use(cors({ origin: 'http://localhost:5000' }));
+app.use(cors({ origin: '*' }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-console.log(cors())
 
 const PORT = 5000;
 
@@ -86,7 +85,7 @@ app.post('/api/login', (req, res) => {
 
 
 
-app.get('/users', (req, res) => {
+app.get('/api', (req, res) => {
   db.collection('users').find().toArray()
     .then(users => {
       res.status(200).json(users);
@@ -97,7 +96,7 @@ app.get('/users', (req, res) => {
     });
 });
 
-app.get('/users/username/:username', (req, res) => {
+app.get('/api/username/:username', (req, res) => {
   const { username } = req.params;
 
   db.collection('users')

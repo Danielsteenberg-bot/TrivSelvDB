@@ -16,7 +16,7 @@ function registerUser(event) {
 
   console.log(userData)
 
-  fetch('https://main.d21aidivw4ryh2.amplifyapp.com/api/register', {
+  fetch('https://localhost:5000/api/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
